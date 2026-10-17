@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "status": "CANDIDATE_TOOLING_CONTRACT_ONLY",
+  "scope": "tooling/visual-identity-lock-v1",
+  "active_runtime_mutation": false,
+  "campaign_canon_mutation": false,
+  "recovery_pr7_mutation": false,
+  "project_source_slot_delta": 0,
+  "source_budget_policy": "SOURCE_BUDGET_POLICY_V1",
+  "activation_target_owner": "EXISTING_VISUAL_OR_RUNTIME_BUNDLE",
+  "canon_direction": "CANON_TO_VISUAL_ONLY",
+  "player_safe_projection_required": true,
+  "visual_to_canon_forbidden": true,
+  "identity_classes": {
+    "PC": "VERY_STRICT",
+    "NAMED_RECURRING_NPC": "STRICT",
+    "NAMED_RECURRING_MONSTER": "STRICT",
+    "UNIQUE_BOSS": "STRICT",
+    "STANDARD_MONSTER_SPECIES": "MODERATE",
+    "BACKGROUND_CROWD": "LOOSE_WITH_SPECIES_GUARD",
+    "GENERIC_MOB": "LOOSE_WITH_SPECIES_GUARD"
+  },
+  "identity_class_policy": {
+    "unknown_entity_class_fails_closed": true,
+    "lock_level_must_exactly_match_class": true
+  },
+  "monster_style_policy": {
+    "official_reference_role": "IDENTITY_AUTHORITY_NOT_STYLE_AUTHORITY",
+    "campaign_style_transformation_allowed": true,
+    "species_drift_allowed": false,
+    "form_drift_allowed": false,
+    "defining_anatomy_drift_allowed": false,
+    "unique_variant_drift_allowed": false
+  },
+  "pc_policy": {
+    "individual_visual_master_required": true,
+    "group_art_is_master": false,
+    "generic_class_substitute_allowed": false,
+    "identity_drift_is_hard_fail": true
+  },
+  "campaign_anchor_policy": {
+    "eligible_classes": [
+      "NAMED_RECURRING_NPC",
+      "NAMED_RECURRING_MONSTER",
+      "UNIQUE_BOSS"
+    ],
+    "official_species_authority_preserved": true,
+    "anchor_is_gameplay_canon": false,
+    "anchor_may_override_current_form": false,
+    "anchor_may_override_runtime_equipment": false,
+    "approved_anchor_required_for_instance_lock": true
+  },
+  "required_visual_reference_manifest_fields": [
+    "ENTITY_ID",
+    "ENTITY_CLASS",
+    "CURRENT_FORM",
+    "IDENTITY_LOCK_LEVEL",
+    "REQUIRED_REFERENCE_AUTHORITY",
+    "ACTUAL_REFERENCE_ASSET",
+    "CURRENT_VISIBLE_STATE_SOURCE",
+    "HANDOFF_STATUS"
+  ],
+  "required_entity_visual_state_fields": [
+    "ENTITY_ID",
+    "ENTITY_CLASS",
+    "IDENTITY_AUTHORITY_ID",
+    "CURRENT_FORM",
+    "CURRENT_VISIBLE_EQUIPMENT",
+    "CURRENT_VISIBLE_WOUNDS_OR_MARKS",
+    "CURRENT_VISIBLE_EFFECTS",
+    "CURRENT_VISIBLE_TRANSFORMATION",
+    "SOURCE_STATE_EPOCH",
+    "OBSERVER_SCOPE"
+  ],
+  "post_render_comparator_receipt_policy": {
+    "receipt_required_for_every_manifest_entity": true,
+    "all_comparator_classes_explicit": true,
+    "allowed_statuses": ["PASS", "FAIL", "NA"],
+    "missing_coverage_fails_closed": true,
+    "unknown_comparator_or_status_fails_closed": true,
+    "unknown_failure_flag_fails_closed": true,
+    "na_allowed_only_for_non_applicable_comparator": true,
+    "comparator_classes": [
+      "PC_IDENTITY",
+      "SPECIES_FORM_IDENTITY",
+      "RECURRING_INSTANCE_IDENTITY",
+      "VISIBLE_EQUIPMENT_STATE",
+      "SCENE_CONTINUITY",
+      "PLAYER_SAFE_CONTENT"
+    ]
+  },
+  "required_comparators_by_entity_class": {
+    "PC": ["PC_IDENTITY", "VISIBLE_EQUIPMENT_STATE", "PLAYER_SAFE_CONTENT"],
+    "NAMED_RECURRING_NPC": ["RECURRING_INSTANCE_IDENTITY", "VISIBLE_EQUIPMENT_STATE", "PLAYER_SAFE_CONTENT"],
+    "NAMED_RECURRING_MONSTER": ["SPECIES_FORM_IDENTITY", "RECURRING_INSTANCE_IDENTITY", "VISIBLE_EQUIPMENT_STATE", "PLAYER_SAFE_CONTENT"],
+    "UNIQUE_BOSS": ["SPECIES_FORM_IDENTITY", "RECURRING_INSTANCE_IDENTITY", "VISIBLE_EQUIPMENT_STATE", "PLAYER_SAFE_CONTENT"],
+    "STANDARD_MONSTER_SPECIES": ["SPECIES_FORM_IDENTITY", "VISIBLE_EQUIPMENT_STATE", "PLAYER_SAFE_CONTENT"],
+    "BACKGROUND_CROWD": ["SPECIES_FORM_IDENTITY", "PLAYER_SAFE_CONTENT"],
+    "GENERIC_MOB": ["SPECIES_FORM_IDENTITY", "PLAYER_SAFE_CONTENT"]
+  },
+  "conditional_comparators": {
+    "SCENE_CONTINUITY": "REQUIRED_FOR_ALL_MANIFEST_ENTITIES_WHEN_CONTINUITY_GROUP_ID_PRESENT"
+  },
+  "hard_fail_classes": [
+    "PC_IDENTITY_DRIFT",
+    "SPECIES_DRIFT",
+    "WRONG_MONSTER_FORM",
+    "DEFINING_ANATOMY_DRIFT",
+    "UNIQUE_VARIANT_DRIFT",
+    "RECURRING_ANCHOR_DRIFT",
+    "INVENTED_VISIBLE_EQUIPMENT_CONFLICT",
+    "HIDDEN_DM_INFORMATION_LEAK",
+    "PANEL_IDENTITY_SWAP"
+  ],
+  "required_regressions": [
+    "PC_DARK_HAIR_SUBSTITUTE_REJECTED",
+    "MONSTER_STYLE_TRANSFORM_SPECIES_PRESERVED_ACCEPTED",
+    "MONSTER_SPECIES_DRIFT_REJECTED",
+    "NAMED_MONSTER_ANCHOR_DRIFT_REJECTED",
+    "MULTIPANEL_REFERENCE_SWAP_REJECTED",
+    "MISSING_REQUIRED_REFERENCE_BLOCKS_GENERATION",
+    "INVENTED_EQUIPMENT_REJECTED",
+    "PROJECT_SOURCE_SLOT_DELTA_ZERO",
+    "EMPTY_POST_RENDER_RECEIPTS_REJECTED",
+    "MISSING_ENTITY_RECEIPT_REJECTED",
+    "MISSING_COMPARATOR_CLASS_REJECTED",
+    "UNKNOWN_COMPARATOR_CLASS_REJECTED",
+    "UNKNOWN_COMPARATOR_STATUS_REJECTED",
+    "UNKNOWN_FAILURE_FLAG_REJECTED",
+    "UNKNOWN_ENTITY_CLASS_REJECTED",
+    "WRONG_MODERATE_LOCK_LEVEL_REJECTED",
+    "WRONG_LOOSE_LOCK_LEVEL_REJECTED"
+  ]
+}
