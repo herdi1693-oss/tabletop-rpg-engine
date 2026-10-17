@@ -1,0 +1,36 @@
+name: Public Boundary Guard
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - 'tooling/**'
+
+permissions:
+  contents: read
+
+jobs:
+  public-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout full reachable history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Public history, identity, path, and secret boundary
+        env:
+          PUBLIC_GUARD_TARGET_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python -m unittest qa.preflight.tests.test_public_repository_boundary -v
+
+      - name: Campaign adapter contract regression
+        run: python -m unittest qa.preflight.tests.test_campaign_content_adapter_contract -v
